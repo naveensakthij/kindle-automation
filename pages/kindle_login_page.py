@@ -9,7 +9,7 @@ class KindleLoginPage:
     EMAIL_INPUT = "#ap_email"
     CONTINUE_BTN = "#continue"
     PASSWORD_INPUT = "input[name='password']"
-    SIGNIN_BTN = "button[name='signIn']"
+    SIGNIN_BTN = "input[type=submit]"
     
     def navigate(self):
         self.page.goto("https://read.amazon.com")

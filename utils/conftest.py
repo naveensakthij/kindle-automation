@@ -1,13 +1,13 @@
-# Open conftest.py in Notepad and paste:
+# conftest.py
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 
 @pytest.fixture(scope="function")
-def page():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # Change to True for CI
-        context = browser.new_context()
-        page = context.new_page()
+async def page():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)  # Set to True for CI
+        context = await browser.new_context()
+        page = await context.new_page()
         yield page
-        context.close()
-        browser.close()
+        await context.close()
+        await browser.close()
