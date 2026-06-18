@@ -30,14 +30,8 @@ class KindleLoginPage:
         self.page.click(self.SIGNIN_BTN)
     
     def verify_login(self):
-        # Wait for URL to stabilize
-        self.page.wait_for_load_state("networkidle")
+        # Wait for the page to fully load
+        self.page.wait_for_load_state("networkidle", timeout=20000)
         
-        # Explicitly wait for the Kindle library URL
-        self.page.wait_for_url(
-            lambda url: "kindle-library" in url,
-            timeout=15000  # 15 seconds
-        )
-        
-        # Final assertion
-        assert "/kindle-library" in self.page.url, f"Expected Kindle library URL, got: {self.page.url}"
+        # Check if the URL contains "/kindle-library"
+        assert "/kindle-library" in self.page.url, f"Expected Kindle library URL, but got: {self.page.url}"
