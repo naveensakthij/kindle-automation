@@ -22,4 +22,4 @@ def test_kindle_login(page):
     login_page.click_signin_button()
     login_page.verify_login()
     
-    print("Login verified successfully!")
+    print("Login verified successfully!")"Test comment" 
