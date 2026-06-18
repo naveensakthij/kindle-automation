@@ -23,9 +23,8 @@ jobs:
       - name: Install Playwright Browsers 🔥
         run: playwright install  # Installs ALL browsers (Chromium, Firefox, WebKit)
 
-      - name: Run Playwright Tests
-        run: |
-          python -m pytest tests/ -v --headless
+      - name: Run Tests
+        run: python -m pytest tests/ -v
         env:
           AMZN_EMAIL: ${{ secrets.AMZN_EMAIL }}      # From GitHub Secrets
           AMZN_PASSWORD: ${{ secrets.AMZN_PASSWORD }}  # From GitHub Secrets
