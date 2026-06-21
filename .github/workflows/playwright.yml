@@ -20,6 +20,38 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install System Dependencies for WebKit
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwoff2dec0 \
+            libvpx7 \
+            libevent-2.1-7 \
+            libopus0 \
+            libgstreamer1.0-0 \
+            libgstreamer-plugins-base1.0-0 \
+            libgst-plugins-bad1.0-0 \
+            libgst-plugins-good1.0-0 \
+            libgst-plugins-ugly1.0-0 \
+            libsecret-1-0 \
+            libhyphen-1-0 \
+            libmanette-0.2-0 \
+            libflite1 \
+            libflite-usenglish1 \
+            libflite-cmu_grapheme_lang1 \
+            libflite-cmu_grapheme_lex1 \
+            libflite-cmu_indic_lang1 \
+            libflite-cmu_indic_lex1 \
+            libflite-cmulex1 \
+            libflite-cmu_time_awb1 \
+            libflite-cmu_us_awb1 \
+            libflite-cmu_us_kal161 \
+            libflite-cmu_us_kal1 \
+            libflite-cmu_us_rms1 \
+            libflite-cmu_us_slt1 \
+            libgles2 \
+            libx264-163
+
       - name: Install Playwright Browsers (Firefox & WebKit)
         run: playwright install firefox webkit
 
