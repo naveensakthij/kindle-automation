@@ -1,6 +1,8 @@
 name: Playwright Tests
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   test:
@@ -10,7 +12,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -20,32 +22,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install System Dependencies for Playwright
+      - name: Install Playwright Browsers
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libasound2t64 \
-            libffi8 \
-            libx264-1 \
-            libvpx2 \
-            libopus0 \
-            libevent-2.1-7 \
-            libgst-plugins-bad1.0-0 \
-            libgst-plugins-good1.0-0 \
-            libgst-plugins-ugly1.0-0 \
-            libsecret-1-0 \
-            libhyphen-1-0 \
-            libmanette-0.2-0 \
-            libflite1 \
-            libgles2 \
-            libwoff2-1.0
+          playwright install --with-deps firefox webkit
 
-      - name: Install Playwright Browsers (Firefox & WebKit)
-        run: playwright install firefox webkit
-
-      - name: Run Tests in Parallel (Firefox + WebKit)
+      - name: Run Tests
         run: |
-          python -m pytest tests/ -v --browser=firefox --browser=webkit -n auto
+          pytest tests/ -v --browser=firefox --browser=webkit -n auto
         env:
           AMZN_EMAIL: ${{ secrets.AMZN_EMAIL }}
           AMZN_PASSWORD: ${{ secrets.AMZN_PASSWORD }}
