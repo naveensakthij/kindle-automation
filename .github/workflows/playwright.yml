@@ -20,10 +20,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright Dependencies (Auto-Detect)
+      - name: Install System Dependencies for Playwright
         run: |
-          # Install ALL required system dependencies for Playwright browsers
-          playwright install-deps
+          sudo apt-get update
+          sudo apt-get install -y \
+            libasound2t64 \
+            libffi8 \
+            libx264-1 \
+            libvpx2 \
+            libopus0 \
+            libevent-2.1-7 \
+            libgst-plugins-bad1.0-0 \
+            libgst-plugins-good1.0-0 \
+            libgst-plugins-ugly1.0-0 \
+            libsecret-1-0 \
+            libhyphen-1-0 \
+            libmanette-0.2-0 \
+            libflite1 \
+            libgles2 \
+            libwoff2-1.0
 
       - name: Install Playwright Browsers (Firefox & WebKit)
         run: playwright install firefox webkit
