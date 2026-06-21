@@ -1,10 +1,10 @@
 name: Playwright Tests
 
-on: [push, pull_request]  # Triggers on pushes and PRs
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Use Ubuntu runner (recommended for Playwright)
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -20,11 +20,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright Browsers 🔥
-        run: playwright install  # Installs ALL browsers (Chromium, Firefox, WebKit)
+      - name: Install Playwright Browsers (Firefox & WebKit)
+        run: playwright install firefox webkit
 
-      - name: Run Tests
-        run: python -m pytest tests/ -v
+      - name: Run Tests in Parallel (Firefox + WebKit)
+        run: |
+          python -m pytest tests/ -v --browser=firefox --browser=webkit -n auto
         env:
-          AMZN_EMAIL: ${{ secrets.AMZN_EMAIL }}      # From GitHub Secrets
-          AMZN_PASSWORD: ${{ secrets.AMZN_PASSWORD }}  # From GitHub Secrets
+          AMZN_EMAIL: ${{ secrets.AMZN_EMAIL }}
+          AMZN_PASSWORD: ${{ secrets.AMZN_PASSWORD }}
